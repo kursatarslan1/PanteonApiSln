@@ -11,45 +11,45 @@ namespace PanteonApi.Application.Services
 {
     public class ParameterGroupService : IParameterGroupService
     {
-        private readonly IParameterGroupRepository _parameterGroupService;
-        public ParameterGroupService(IParameterGroupRepository parameterGroupService)
+        private readonly IParameterGroupRepository _parameterGroupRepository;
+        public ParameterGroupService(IParameterGroupRepository parameterGroupRepository)
         {
-            _parameterGroupService = parameterGroupService;
+            _parameterGroupRepository = parameterGroupRepository;
         }
 
         public async Task<List<ParameterGroupDto>> GetParameterGroupsAsync()
         {
-            var groups = await _parameterGroupService.GetParameterGroupsAsync();
+            var groups = await _parameterGroupRepository.GetParameterGroupsAsync();
             return groups.Select(group => new ParameterGroupDto(group)).ToList();   
         }
 
         public async Task<ParameterGroupDto> GetParameterGroupByIdAsync(string id)
         {
-            var group = await _parameterGroupService.GetParameterGroupByIdAsync(id);
+            var group = await _parameterGroupRepository.GetParameterGroupByIdAsync(id);
             return new ParameterGroupDto(group);
         }
 
         public async Task<List<string>> GetParameterNamesByConfigurationNameAsync(string configurationName)
         {
-            var parameterNames = await _parameterGroupService.GetParameterNamesByConfigurationNameAsync(configurationName);
+            var parameterNames = await _parameterGroupRepository.GetParameterNamesByConfigurationNameAsync(configurationName);
             return parameterNames;
         }
 
         public async Task CreateParameterGroupAsync(ParameterGroupDto parameterGroup)
         {
             var newParameterGroup = new ParameterGroup(parameterGroup.ParameterId, parameterGroup.ConfigurationParameter, parameterGroup.ParameterName);
-            await _parameterGroupService.InsertParameterGroupAsync(newParameterGroup);
+            await _parameterGroupRepository.InsertParameterGroupAsync(newParameterGroup);
         }
 
         public async Task UpdateParameterGroupAsync(ParameterGroupDto parameterGroup)
         {
             var updateGroup = new ParameterGroup(parameterGroup.ParameterId, parameterGroup.ConfigurationParameter, parameterGroup.ParameterName);
-            await _parameterGroupService.UpdateParameterGroupAsync(updateGroup);
+            await _parameterGroupRepository.UpdateParameterGroupAsync(updateGroup);
         }
 
         public async Task DeleteParameterGroupAsync(string id)
         {
-            await _parameterGroupService.DeleteParameterGroupAsync(id);
+            await _parameterGroupRepository.DeleteParameterGroupAsync(id);
         }
     }
 }

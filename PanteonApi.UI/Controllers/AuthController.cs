@@ -31,7 +31,8 @@ namespace PanteonApi.UI.Controllers
 			}
 
 			var userExists = await _userService.GetUserByUsernameAsync(model.Username);
-			if(userExists != null)
+			var userExistsWithEmail = await _userService.GetUserByEmailAsync(model.Email);
+			if (userExists != null || userExistsWithEmail != null) 
 			{
 				return BadRequest("User already exists!");
 			}
