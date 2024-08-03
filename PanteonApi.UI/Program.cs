@@ -16,11 +16,13 @@ builder.Services.Configure<PanteonDatabaseSettings>(builder.Configuration.GetSec
 builder.Services.AddSingleton<IBuildingConfigurationRepository, BuildingConfigurationRepository>();
 builder.Services.AddSingleton<IConfigurationRepository, ConfigurationRepository>();
 builder.Services.AddSingleton<IParameterDefinitionRepository, ParameterDefinitionRepository>();
+builder.Services.AddSingleton<IParameterGroupRepository, ParameterGroupRepository>();
 
 //Scoped
 builder.Services.AddScoped<IBuildingConfigurationService, BuildingConfigurationService>();
 builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 builder.Services.AddScoped<IParameterDefinitionService, ParameterDefinitionService>();
+builder.Services.AddScoped<IParameterGroupService, ParameterGroupService>();
 
 // Add services to the container.
 builder.Services.AddScoped<IUserRepository, UserRepository>();
