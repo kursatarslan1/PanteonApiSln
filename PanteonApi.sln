@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanteonApi.Domain", "PanteonApi.Domain\PanteonApi.Domain.csproj", "{81810DF0-377A-4E4F-AE4C-01A4786219D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanteonApi.Infrastructure", "PanteonApi.Infrastructure\PanteonApi.Infrastructure.csproj", "{B769F134-C75A-4754-8B1D-5E000C7A1F90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanteonApi.UI", "PanteonApi.UI\PanteonApi.UI.csproj", "{51530E15-D376-4C72-9A6E-A705574CC4C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanteonApi.Application", "PanteonApi.Application\PanteonApi.Application.csproj", "{EE720C37-F19D-4177-B172-F651974D3895}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81810DF0-377A-4E4F-AE4C-01A4786219D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81810DF0-377A-4E4F-AE4C-01A4786219D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81810DF0-377A-4E4F-AE4C-01A4786219D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81810DF0-377A-4E4F-AE4C-01A4786219D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B769F134-C75A-4754-8B1D-5E000C7A1F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B769F134-C75A-4754-8B1D-5E000C7A1F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B769F134-C75A-4754-8B1D-5E000C7A1F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B769F134-C75A-4754-8B1D-5E000C7A1F90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51530E15-D376-4C72-9A6E-A705574CC4C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51530E15-D376-4C72-9A6E-A705574CC4C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51530E15-D376-4C72-9A6E-A705574CC4C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51530E15-D376-4C72-9A6E-A705574CC4C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE720C37-F19D-4177-B172-F651974D3895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE720C37-F19D-4177-B172-F651974D3895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE720C37-F19D-4177-B172-F651974D3895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE720C37-F19D-4177-B172-F651974D3895}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
