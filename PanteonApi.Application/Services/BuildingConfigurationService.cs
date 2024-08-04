@@ -25,22 +25,39 @@ namespace PanteonApi.Application.Services
 			return new BuildingConfigurationDto(configuration);
 		}
 
-		public async Task CreateBuildingConfigurationAsync(BuildingConfigurationDto buildingConfiguration)
-		{
-			var newBuildingConfiguration = new BuildingConfiguration(buildingConfiguration.BuildingId, buildingConfiguration.BuildingType, buildingConfiguration.BuildingCost, buildingConfiguration.ConstructionTime);
-			await _buildingConfigurationRepository.InsertBuildingConfigurationAsync(newBuildingConfiguration);
-		}
+        public async Task CreateBuildingConfigurationAsync(BuildingConfigurationDto buildingConfiguration)
+        {
+            if (!ValidateBuildingConfiguration(buildingConfiguration))
+            {
+                throw new ArgumentException("Invalid building configuration data.");
+            }
 
-		public async Task UpdateBuildingConfigurationAsync(BuildingConfigurationDto buildingConfiguration)
-		{
-			var configuration = new BuildingConfiguration(buildingConfiguration.BuildingId, buildingConfiguration.BuildingType, buildingConfiguration.BuildingCost, buildingConfiguration.ConstructionTime);
-			await _buildingConfigurationRepository.UpdateBuildingConfigurationAsync(configuration);
-		}
+            var newBuildingConfiguration = new BuildingConfiguration(buildingConfiguration.BuildingId, buildingConfiguration.BuildingType, buildingConfiguration.BuildingCost, buildingConfiguration.ConstructionTime);
+            await _buildingConfigurationRepository.InsertBuildingConfigurationAsync(newBuildingConfiguration);
+        }
 
-		public async Task DeleteBuildingConfigurationAsync(string id)
+        public async Task UpdateBuildingConfigurationAsync(BuildingConfigurationDto buildingConfiguration)
+        {
+            if (!ValidateBuildingConfiguration(buildingConfiguration))
+            {
+                throw new ArgumentException("Invalid building configuration data.");
+            }
+
+            var configuration = new BuildingConfiguration(buildingConfiguration.BuildingId, buildingConfiguration.BuildingType, buildingConfiguration.BuildingCost, buildingConfiguration.ConstructionTime);
+            await _buildingConfigurationRepository.UpdateBuildingConfigurationAsync(configuration);
+        }
+
+        public async Task DeleteBuildingConfigurationAsync(string id)
 		{
 			await _buildingConfigurationRepository.DeleteBuildingConfigurationAsync(id);
 		}
-	}
+
+        private bool ValidateBuildingConfiguration(BuildingConfigurationDto dto)
+        {
+            return dto != null
+                && decimal.TryParse(dto.BuildingCost, out var cost) && cost > 0
+                && int.TryParse(dto.ConstructionTime, out var time) && time >= 30 && time <= 1800;
+        }
+    }
 }
 

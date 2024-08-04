@@ -26,6 +26,11 @@ namespace PanteonApi.Application.Services
 			return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 		}
 
+		public async Task<User> GetUserByIdAsync(int id)
+		{
+			return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+		}
+
 		public async Task CreateUserAsync(User user)
 		{
 			_context.Users.Add(user);

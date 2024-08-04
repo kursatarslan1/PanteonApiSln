@@ -16,10 +16,12 @@ namespace PanteonApi.UI.Controllers
 	{
 		private readonly IUserService _userService;
 		private readonly IConfiguration _configuration;
-		public AuthController(IUserService userService, IConfiguration configuration)
+		private readonly ITokenService _tokenService;
+		public AuthController(IUserService userService, IConfiguration configuration, ITokenService tokenService)
 		{
 			_userService = userService;
 			_configuration = configuration;
+			_tokenService = tokenService;
 		}
 
 		[HttpPost("register")]
@@ -51,7 +53,31 @@ namespace PanteonApi.UI.Controllers
 			return Ok(new { Token = token });
 		}
 
-		[HttpPost("login")]
+        [HttpGet("userinfo")]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest("Token is missing.");
+            }
+
+            var user = await _tokenService.GetUserFromTokenAsync(token);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var userDto = new UserDto
+            {
+                Username = user.Username,
+                Email = user.Email
+            };
+
+            return Ok(userDto);
+        }
+
+        [HttpPost("login")]
 		public async Task<IActionResult> Login([FromBody] UserDto model)
 		{
 			if (!ModelState.IsValid)

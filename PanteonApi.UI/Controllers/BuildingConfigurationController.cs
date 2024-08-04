@@ -33,36 +33,46 @@ namespace PanteonApi.UI.Controllers
 			return Ok(configuration);
 		}
 
-		[HttpPost]
-		public async Task<ActionResult> CreateBuildingConfiguration([FromBody] BuildingConfigurationDto buildingConfiguration)
-		{
-			await _buildingConfigurationService.CreateBuildingConfigurationAsync(buildingConfiguration);
-			return CreatedAtAction(nameof(GetBuildingConfigurationById), new { id = buildingConfiguration.BuildingId }, buildingConfiguration);
-		}
+        [HttpPost]
+        public async Task<ActionResult> CreateBuildingConfiguration([FromBody] BuildingConfigurationDto buildingConfiguration)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-		[HttpPut("{id}")]
-		public async Task<ActionResult> UpdateBuildingConfiguration(string id, [FromBody] BuildingConfigurationDto buildingConfiguration)
-		{
-			if (id != buildingConfiguration.BuildingId)
-			{
-				return BadRequest("ID mismatch");
-			}
+            await _buildingConfigurationService.CreateBuildingConfigurationAsync(buildingConfiguration);
+            return CreatedAtAction(nameof(GetBuildingConfigurationById), new { id = buildingConfiguration.BuildingId }, buildingConfiguration);
+        }
 
-			var existingBuildingConfiguration = await _buildingConfigurationService.GetBuildingConfigurationByIdAsync(id);
-			if(existingBuildingConfiguration == null)
-			{
-				return NotFound("Building configuration not found");
-			}
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateBuildingConfiguration(string id, [FromBody] BuildingConfigurationDto buildingConfiguration)
+        {
+            if (id != buildingConfiguration.BuildingId)
+            {
+                return BadRequest("ID mismatch");
+            }
 
-			existingBuildingConfiguration.BuildingType = buildingConfiguration.BuildingType;
-			existingBuildingConfiguration.BuildingCost = buildingConfiguration.BuildingCost;
-			existingBuildingConfiguration.ConstructionTime = buildingConfiguration.ConstructionTime;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-			await _buildingConfigurationService.UpdateBuildingConfigurationAsync(existingBuildingConfiguration);
-			return NoContent();
-		}
+            var existingBuildingConfiguration = await _buildingConfigurationService.GetBuildingConfigurationByIdAsync(id);
+            if (existingBuildingConfiguration == null)
+            {
+                return NotFound("Building configuration not found");
+            }
 
-		[HttpDelete("{id}")]
+            existingBuildingConfiguration.BuildingType = buildingConfiguration.BuildingType;
+            existingBuildingConfiguration.BuildingCost = buildingConfiguration.BuildingCost;
+            existingBuildingConfiguration.ConstructionTime = buildingConfiguration.ConstructionTime;
+
+            await _buildingConfigurationService.UpdateBuildingConfigurationAsync(existingBuildingConfiguration);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteBuildingConfigurations(string id)
 		{
 			await _buildingConfigurationService.DeleteBuildingConfigurationAsync(id);

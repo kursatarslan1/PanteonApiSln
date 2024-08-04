@@ -36,6 +36,7 @@ builder.Services.AddScoped<IBuildingConfigurationService, BuildingConfigurationS
 builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 builder.Services.AddScoped<IParameterDefinitionService, ParameterDefinitionService>();
 builder.Services.AddScoped<IParameterGroupService, ParameterGroupService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Add services to the container.
 builder.Services.AddScoped<IUserRepository, UserRepository>();
